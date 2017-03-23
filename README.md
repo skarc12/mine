@@ -170,3 +170,91 @@ CHIP Xor {
     Or(a=a, b=b, out=orab);
     And(a=nandab, b=orab, out=out);
 }
+
+
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Not16.hdl
+
+/**
+ * 16-bit Not:
+ * for i=0..15: out[i] = not in[i]
+ */
+
+CHIP Not16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+    Not(in=in[0], out=out[0]);
+    Not(in=in[1], out=out[1]);
+    Not(in=in[2], out=out[2]);
+    Not(in=in[3], out=out[3]);
+    Not(in=in[4], out=out[4]);
+    Not(in=in[5], out=out[5]);
+    Not(in=in[6], out=out[6]);
+    Not(in=in[7], out=out[7]);
+    Not(in=in[8], out=out[8]);
+    Not(in=in[9], out=out[9]);
+    Not(in=in[10], out=out[10]);
+    Not(in=in[11], out=out[11]);
+    Not(in=in[12], out=out[12]);
+    Not(in=in[13], out=out[13]);
+    Not(in=in[14], out=out[14]);
+    Not(in=in[15], out=out[15]);
+
+}
+
+
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or8Way.hdl
+
+/**
+ * 8-way Or: 
+ * out = (in[0] or in[1] or ... or in[7])
+ */
+
+CHIP Or8Way {
+    IN in[8];
+    OUT out;
+
+    PARTS:
+    Or(a=in[0], b=in[1], out=c1);
+     Or(a=in[2], b=in[3], out=c2);
+      Or(a=in[4], b=in[5], out=c3);
+       Or(a=in[6], b=in[7], out=c4);
+
+    Or(a=c1, b=c2, out=c5);
+      Or(a=c3, b=c4, out=c6);
+
+    Or(a=c5, b=c6, out=out);
+}
+
+
+
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or16.hdl
+
+/**
+ * 16-bit bitwise Or:
+ * for i = 0..15 out[i] = (a[i] or b[i])
+ */
+
+CHIP Or16 {
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+    Not16(in=a, out=nota);
+    Not16(in=b, out=notb);
+    And16(a=nota, b=notb, out=x );
+    Not16(in=x, out=out);
+
+
+}
